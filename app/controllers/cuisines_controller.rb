@@ -12,7 +12,7 @@ class CuisinesController < ApplicationController
 
       @cuisine = Cuisine.new(atributos_cuisine)
       @cuisine.save
-      redirect_to @cuisene
+      redirect_to @cuisine
         
 
 
