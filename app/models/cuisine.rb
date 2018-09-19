@@ -1,3 +1,4 @@
 class Cuisine < ApplicationRecord
-  has_many :recipes
+  has_many :recipes 
+  validates :name, presence: true
 end

@@ -14,9 +14,14 @@ feature 'User create cuisine' do
 
   end
 
+  scenario 'user does not fill in the required field' do
+    visit root_path
+    click_on 'Cadastrar cozinhas'
+    fill_in 'Nome', with: ''
+    click_on 'Enviar' 
+
+    expect(page).to have_content('Campo obrigatório em branco')
   
-
-
-
+  end  
 
 end
