@@ -2,12 +2,14 @@ require 'rails_helper'
 
 feature 'user mark recipe as feature' do
   scenario 'successfully' do
+    author = User.create(email: 'teste@mail.com', password: '123456')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
     Recipe.create(title: 'Bolo de cenoura', difficulty: 'Médio',
                   recipe_type: recipe_type, cuisine: cuisine,
                   cook_time: 50, ingredients: 'Farinha, açucar, cenoura',
-                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes')
+                  cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
+                  user:author)
 
     visit root_path
     click_on 'Bolo de cenoura'
@@ -18,6 +20,7 @@ feature 'user mark recipe as feature' do
   end
 
   scenario 'and they appear differently' do
+    author = User.create(email: 'teste@mail.com', password: '123456')
     recipe_type = RecipeType.create(name: 'Sobremesa')
     cuisine = Cuisine.create(name: 'Brasileira')
     principal_recipe_type = RecipeType.create(name: 'Prato principal')
@@ -28,14 +31,16 @@ feature 'user mark recipe as feature' do
                                     cook_time: 50,
                                     ingredients: 'Farinha, açucar, cenoura',
                                     cook_method: 'Cozinhe a cenoura, corte em pedaços pequenos, misture com o restante dos ingredientes',
-                                    featured: true)
+                                    featured: true,
+                                    user: author)
 
     another_recipe = Recipe.create(title: 'Feijoada',
                                    recipe_type: principal_recipe_type,
                                    cuisine: cuisine, difficulty: 'Difícil',
                                    cook_time: 90,
                                    ingredients: 'Feijão e carnes',
-                                   cook_method: 'Misture o feijão com as carnes')
+                                   cook_method: 'Misture o feijão com as carnes',
+                                   user: author)
     visit root_path
 
     expect(page).to have_css('h3', text: 'Receitas destaque')

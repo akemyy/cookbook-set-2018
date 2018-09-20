@@ -3,10 +3,18 @@ require 'rails_helper'
 feature 'User attach photo to recipe' do
 
   scenario 'sucessfully' do
+    User.create(email: 'teste@mail.com', password: '123456')
     RecipeType.create(name: 'Entrada')
     Cuisine.create(name: 'Arabe')
 
     visit root_path
+    click_on 'Entrar'
+
+    within('form') do
+      fill_in 'Email', with: 'teste@mail.com'
+      fill_in 'Senha', with: '123456'
+      click_on 'Entrar'
+    end
 
     click_on 'Enviar uma receita'
 
@@ -26,11 +34,19 @@ feature 'User attach photo to recipe' do
   end
 
   scenario 'and doesnt uploud image' do
-
+    User.create(email: 'teste@mail.com', password: '123456')
     Cuisine.create(name: 'Arabe')
     RecipeType.create(name: 'Entrada')
 
     visit root_path
+    click_on 'Entrar'
+
+    within('form') do
+      fill_in 'Email', with: 'teste@mail.com'
+      fill_in 'Senha', with: '123456'
+      click_on 'Entrar'
+    end
+
     click_on 'Enviar uma receita'
 
     fill_in 'Título', with: 'Tabule'
@@ -48,10 +64,19 @@ feature 'User attach photo to recipe' do
 
 
   scenario 'and is not an image' do
+    User.create(email: 'teste@mail.com', password: '123456')
     Cuisine.create(name: 'Arabe')
     RecipeType.create(name: 'Entrada')
 
     visit root_path
+    click_on 'Entrar'
+
+    within('form') do
+      fill_in 'Email', with: 'teste@mail.com'
+      fill_in 'Senha', with: '123456'
+      click_on 'Entrar'
+    end
+
     click_on 'Enviar uma receita'
 
     fill_in 'Título', with: 'Tabule'
