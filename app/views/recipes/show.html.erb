@@ -14,8 +14,14 @@
 <p><%= image_tag @recipe.photo.url  %></p>
 <p>Enviado por: </p>
 <p> <%= @recipe.user.email%></p>
+<% @recipe.base_ingredients.each do |i| %>
+  <p><%= i.name%> </p>
+<% end %>
 
 <%= link_to 'Editar', edit_recipe_path(@recipe), class: 'btn btn-primary' %>
 <%= link_to 'Marcar como destaque', feature_recipe_path(@recipe),
     class: 'btn btn-success', method: :post %>
 <%= link_to 'Voltar', root_path, class: 'btn btn-secondary' %>
+<% if (current_user && @recipe.user.email == current_user.email)%>
+<%= link_to 'Apagar', recipe_path(@recipe),method: :delete, class: 'btn btn-primary' %>
+<% end %>
